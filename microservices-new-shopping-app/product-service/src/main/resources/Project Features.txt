@@ -1,0 +1,28 @@
+Creating Multiple Micro Services, and allowing communication Between them
+Using Java 8 Features such as lambdas, streams and method reference.
+Using a layered Architecture with controller service repository model and data models to provide abstraction
+Added Integration test - Used TestingContainer -> Mongodbcontainer and MockMvc
+Using mongodb for creating db
+
+3 Microservices - Order Service - to Place Order
+                    Inventory Service - to check if product is in stock or not based on skuCode
+                    Product Service - to add products and fetch all products
+
+Established communication between order service and inventory service
+Successfully registered all 3 services with eureka service discovery
+Used  @LoadBalanceed to resolve which server to access when multiple instances of a server is going on
+
+Even when we close DiscoveryServer we are still able to communicate as client stores copy of registry information locally as well
+
+Added Api Gateway for inventory and order service with routes and predicates
+
+Added ouath 2 using keycloak for application
+added a simple http auth for eureka server and configured it in other services so that discovery can be accessed by the services
+Added Circuit breaker pattern using resillience4j for order service creating a fall back method when unable to create order
+contd : When Set the No of times to fall to open state as 5, Time at open state 5Seconds, No of successfull calls form half open to closed is 3
+Unable to set up Timelimiter -> fallback when service is taking more time than configured
+
+Added Distributed tracing spring sleuth and used zipkin ui to monitor the trace logs
+
+Problems so far
+1. Setting up mongodb
